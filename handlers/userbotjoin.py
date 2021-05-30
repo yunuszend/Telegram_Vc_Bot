@@ -4,7 +4,7 @@ from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import UserAlreadyParticipant
 from helpers.decorators import errors, authorized_users_only
 
-@Client.on_message(filters.group & filters.command(["userbotjoin"]))
+@Client.on_message(filters.group & filters.command(["asistenjoin"]))
 @authorized_users_only
 @errors
 async def addchannel(client, message):
@@ -24,10 +24,10 @@ async def addchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id,"I joined here as you requested")
+        await USER.send_message(message.chat.id,"Aku join sesuai keinginan kamu")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your chat</b>",
+            "<b>helper sudah ada di obrolan Anda</b>",
         )
         pass
     except Exception as e:
@@ -38,16 +38,16 @@ async def addchannel(client, message):
         )
         return
     await message.reply_text(
-            "<b>helper userbot joined your chat</b>",
+            "<b>helper userbot bergabung dengan obrolan Anda</b>",
         )
     
-@USER.on_message(filters.group & filters.command(["userbotleave"]))
+@USER.on_message(filters.group & filters.command(["kickasisten"]))
 async def rem(USER, message):
     try:
         await USER.leave_chat(message.chat.id)
     except:  
         await message.reply_text(
-            f"<b>User couldn't leave your group! May be floodwaits."
-            "\n\nOr manually kick me from to your Group</b>",
+            f"<b>Pengguna tidak dapat meninggalkan grup Anda! Mungkin menunggu floodwaits."
+            "\n\nAtau kick secara manual dari grup anda</b>",
         )
         return
